@@ -25,6 +25,12 @@ snake_body = [[100,50], [90,50], [80,50]]
 food_pos = [random.randrange(1,(frame_size_x//10))*10, random.randrange(1, (frame_size_y//10))*10]
 food_spawn = False
 
+food_pos_1 = [random.randrange(1,(frame_size_x//10))*10, random.randrange(1, (frame_size_y//10))*10]
+food_spawn_1 = False
+
+food_pos_2 = [random.randrange(1,(frame_size_x//10))*10, random.randrange(1, (frame_size_y//10))*10]
+food_spawn_2 = False
+
 direction = 'RIGHT'
 change_to = direction
 
@@ -55,8 +61,7 @@ def game_over():
     pygame.display.flip()
     time.sleep(3)
     scr()
-    # pygame.quit()
-    # sys.exit()
+
 
 
 while True:
@@ -98,6 +103,15 @@ while True:
     if snake_pos[0] == food_pos[0] and snake_pos[1] == food_pos[1]:
         score +=1
         food_spawn = False
+
+    if snake_pos[0] == food_pos_1[0] and snake_pos[1] == food_pos_1[1]:
+        score +=1
+        food_spawn_1 = False
+
+    if snake_pos[0] == food_pos_2[0] and snake_pos[1] == food_pos_2[1]:
+        score +=1
+        food_spawn_2 = False
+
     else:
         snake_body.pop()
 
@@ -105,9 +119,18 @@ while True:
         food_pos = [random.randrange(1, (frame_size_x // 10)) * 10, random.randrange(1, (frame_size_y // 10)) * 10]
         food_spawn = True
 
+    if not food_spawn_1:
+        food_pos_1 = [random.randrange(1, (frame_size_x // 10)) * 10, random.randrange(1, (frame_size_y // 10)) * 10]
+        food_spawn_1 = True
+
+    if not food_spawn_2:
+        food_pos_2 = [random.randrange(1, (frame_size_x // 10)) * 10, random.randrange(1, (frame_size_y // 10)) * 10]
+        food_spawn_2 = True
 
     game_window.fill(black)
     pygame.draw.rect(game_window, white, pygame.Rect(food_pos[0], food_pos[1], 10,10))
+    pygame.draw.rect(game_window, white, pygame.Rect(food_pos_1[0], food_pos_1[1], 10, 10))
+    pygame.draw.rect(game_window, white, pygame.Rect(food_pos_2[0], food_pos_2[1], 10, 10))
 
     for pos in snake_body:
         pygame.draw.rect(game_window, white, pygame.Rect(pos[0], pos[1], 10, 10))
